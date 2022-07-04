@@ -1,7 +1,22 @@
 import Link from "next/link";
+import Head from 'next/head';
+import Router from "next/router";
+import nProgress from "nprogress";
 
+Router.onRouteChangeStart = url => {
+    console.log(url);
+    nProgress.start();
+}
+
+Router.onRouteChangeComplete = () => nProgress.done();
+Router.onRouteChangeError = () => nProgress.done();
+ 
 export default ({ children, title }) => (
     <div className="root">
+        <Head>
+            <title>Next Portfolio</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        </Head>
         <header>
             <Link href={'/'}><a>Home </a></Link>
             <Link href={'/about'}><a>About </a></Link>
@@ -9,7 +24,7 @@ export default ({ children, title }) => (
         </header>
 
         <h1>{title}</h1>
-        { children }
+        {children}
 
 
         <footer>&copy; {new Date().getFullYear()}</footer>
